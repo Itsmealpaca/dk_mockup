@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Search } from "lucide-react";
 
 /**
@@ -21,19 +21,32 @@ const Pill = ({ active, children, onClick }: any) => (
   </button>
 );
 
+const PlaceholderImg = ({ label, className = "" }: { label: string; className?: string }) => (
+  <div
+    className={
+      "relative overflow-hidden rounded-lg bg-gradient-to-br from-zinc-700 to-zinc-900 " +
+      className
+    }
+  >
+    <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.18),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(255,255,255,0.12),transparent_45%)]" />
+    <div className="absolute inset-0 flex items-center justify-center text-[24px]">🚴</div>
+    <div className="absolute bottom-2 left-2 text-[11px] text-zinc-200/80">{label}</div>
+  </div>
+);
+
 const MEETINGS = [
-  { id: "3001", title: "운동으로 친해져요!", meta: "동네 이웃들과 함께 운동하며 건강도 챙기고 친목도 다...", location: "성사2동", members: 3 },
-  { id: "3002", title: "고양 덕양구 자전거 모임 🚴", meta: "안녕하세요 덕양구 로드 자전거 모임입니다:) - 샤방벙...", location: "토당동", members: 40 },
-  { id: "3003", title: "[20-30] 전기 자전거 라이딩", meta: "20대~30대만 가입 부탁드립니다. 지역 - 서울~파주...", location: "화정동", members: 1 },
+  { id: "3001", title: "운동으로 친해져요!", meta: "동네 이웃들과 함께 운동하며 건강도 챙기고 친목도 다...", location: "성사2동", members: 5 },
+  { id: "3002", title: "[7080] 고양파주 들국화🏵️", meta: "안녕하세요 이팔청춘 시니어 로드 자전거 모임입니다:)", location: "토당동", members: 30 },
+  { id: "3003", title: "[20-30] 전기 자전거 라이딩", meta: "20대~30대만 가입 부탁드립니다. 지역 - 서울~파주...", location: "화정동", members: 120 },
   { id: "3004", title: "자전거 타자구요", meta: "자전거 탑시다 따릉이 뭐든 좋아요 저랑 자전거...", location: "화정1동", members: 2 },
-  { id: "3005", title: "씽씽! 바람을 가르자", meta: "안녕하세요! 행신4동 주민 여러분, 같이 자전거 타실...", location: "행신4동", members: 2 },
-  { id: "3006", title: "로드, 산악자전거 모임", meta: "목적은 오직 자신을 위한 운동입니다. 주로 로드, 산악...", location: "화정1동", members: 5, tag: "신규 모임" },
+  { id: "3005", title: "씽씽! 바람을 가르자", meta: "안녕하세요! 행신4동 주민 여러분, 같이 자전거 타실...", location: "행신4동", members: 5 },
+  { id: "3006", title: "로드, 산악자전거 모임", meta: "목적은 오직 자신을 위한 운동입니다. 주로 로드, 산악...", location: "화정1동", members: 10, tag: "신규 모임" },
   { id: "3007", title: "주말 한강 라이딩 모임", meta: "매주 토요일 오전 한강 자전거도로 모임입니다.", location: "마두동", members: 12 },
-  { id: "3008", title: "초보자 환영 자전거 동호회", meta: "처음 자전거 타시는 분들도 환영해요. 같이 천천히...", location: "백석동", members: 8 },
+  { id: "3008", title: "초보자 환영🤗 팀 둥가둥가", meta: "처음 자전거 타시는 분들도 환영해요. 같이 천천히 속도를 올려봐요!", location: "성사2동", members: 208 },
 ];
 
 const PRIORITY_IDS: Record<string, string[]> = {
-  "1": ["3002", "3001", "3007", "3008"],
+  "1": ["3003", "3001", "3007", "3008"],
   "2": ["3002", "3006", "3005", "3004"],
 };
 
@@ -136,12 +149,9 @@ export default function MeetingSearchResults() {
         <div className="px-4">
           {sortedItems.map((meeting, idx) => (
             <div key={meeting.id}>
-              <Link
-                to={`/meeting/detail/${meeting.id}`}
-                className="flex gap-3 py-4 items-stretch hover:opacity-90 transition-opacity block"
-              >
-                <div className="w-12 h-12 shrink-0 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-[18px]">
-                  🚴
+              <div className="flex gap-3 py-4 items-stretch block cursor-default">
+                <div className="shrink-0 w-[110px] self-stretch min-h-[96px]">
+                  <PlaceholderImg label="모임" className="w-full h-full border-0" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-[14px] font-semibold text-zinc-100 line-clamp-1">{meeting.title}</div>
@@ -161,7 +171,7 @@ export default function MeetingSearchResults() {
                 <div className="shrink-0 flex items-center">
                   <span className="text-zinc-500">›</span>
                 </div>
-              </Link>
+              </div>
               {idx < sortedItems.length - 1 && <div className="h-px bg-zinc-800/80" />}
             </div>
           ))}

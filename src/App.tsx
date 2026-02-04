@@ -175,8 +175,8 @@ export default function App() {
     () => [
       { searchId: "1", productId: "1", title: "엔진11 크리드티 픽시 자전거", tags: ["10대 인기🔥 픽시 자전거"], meta: "일산동구 마두동 · 33분 전", price: 250000, liked: false },
       { searchId: "2", productId: "5", title: "삼천리자전거 삼천리 튜러 · 21 하이브리드 자전거 700C", tags: ["10만원 이하 가성비💸"], meta: "고양시 일산동구 식사동 · 1일 전", price: 70000, liked: true },
-      { searchId: "3", productId: "8", title: "로드마스터 접이식 미니벨로 자전거", tags: ["작은 바퀴 입문자용 미니벨로🐤"], meta: "270m · 화정동 · 1일 전", price: 200000, liked: true },
-      { searchId: "4", productId: "11", title: "CRNK 아티카 자전거 헬멧 L 그레이", tags: ["안전제일 라이딩 용품🦺"], meta: "일산동구 백마동 · 2일 전", price: 500000, liked: true },
+      { searchId: "3", productId: "8", title: "로드마스터 접이식 미니벨로 자전거", tags: ["안정적인 입문자용 미니벨로🐤"], meta: "270m · 일산동구 백마동 · 1일 전", price: 300000, liked: true },
+      { searchId: "4", productId: "11", title: "CRNK 아티카 자전거 헬멧 L 그레이", tags: ["안전 제일 라이딩 용품🦺"], meta: "일산동구 백마동 · 2일 전", price: 50000, liked: true },
     ],
     []
   );
@@ -204,8 +204,8 @@ export default function App() {
 
   const groups = useMemo(
     () => [
-      { id: "1", tag: "가장 사람이 많은 모임", title: "운동으로 친해져요!", meta: "동네 이웃들과 함께 운동도 하고 건강도 챙기고 친목도...", members: "성사2동 · 3" },
-      { id: "2", tag: "평균 연령대 65세", title: "고양 덕양구 자전거 모임 🚴", meta: "안녕하세요 덕양구 로드 자전거 모임입니다! - 사방...", members: "토당동 · 40" },
+      { id: "1", tag: "가장 사람이 많은 모임", title: "초보자 환영🤗 팀 둥가둥가", meta: "처음 자전거 타시는 분들도 환영해요. 같이 천천히 속도를 올려봐요!", members: "성사2동 · 208" },
+      { id: "2", tag: "평균 연령대 65세+", title: "[7080] 고양파주 들국화🏵️", meta: "안녕하세요 이팔청춘 시니어 로드 자전거 모임입니다:)", members: "토당동 · 30" },
     ],
     []
   );
@@ -432,7 +432,7 @@ export default function App() {
                 >
                   <div className="flex gap-3 py-3 min-h-[96px]">
                     <div className="flex-1 min-w-0">
-                      <div className="text-[11px] font-medium text-orange-500/90 mb-1 line-clamp-1">
+                      <div className="text-[14px] font-extrabold text-orange-500/90 mb-1 line-clamp-1">
                         {post.tag}
                       </div>
                       <div className="text-[14px] font-semibold text-zinc-100 line-clamp-1">
@@ -471,25 +471,25 @@ export default function App() {
         {/* 모임 */}
         <SectionTitle title="모임" right={null} />
         <div className="px-4">
-          <div className="space-y-3">
-            {groups.map((g) => (
-              <Link key={g.id} to={`/meeting/search/${g.id}`} className="block hover:opacity-90 transition-opacity">
-                <div className="rounded-2xl bg-zinc-950 border border-zinc-800 overflow-hidden">
-                  <div className="flex gap-3 p-4">
-                    <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center">
-                      <div className="text-[12px] text-zinc-300">🚴</div>
+          <div>
+            {groups.map((g, idx) => (
+              <div key={g.id}>
+                <Link to={`/meeting/search/${g.id}`} className="block hover:opacity-90 transition-opacity">
+                  <div className="flex gap-3 py-3 items-stretch">
+                    <div className="shrink-0 w-[104px] h-[104px]">
+                      <PlaceholderImg label="모임" className="w-full h-full border-0" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-[11px] font-medium text-orange-500/90 mb-1">
+                      <div className="text-[14px] font-extrabold text-orange-500/90 mb-1 line-clamp-1">
                         {g.tag}
                       </div>
-                      <div className="text-[14px] font-semibold text-zinc-100 line-clamp-1">
+                      <div className="text-[12px] text-zinc-100 line-clamp-2 leading-snug">
                         {g.title}
                       </div>
-                      <div className="mt-1 text-[12px] text-zinc-400 line-clamp-2 leading-relaxed">
+                      <div className="mt-0.5 text-[12px] text-zinc-400 line-clamp-2">
                         {g.meta}
                       </div>
-                      <div className="mt-2">
+                      <div className="mt-1">
                         <Meta>{g.members}</Meta>
                       </div>
                     </div>
@@ -497,8 +497,11 @@ export default function App() {
                       <ChevronRight size={20} className="text-zinc-500" />
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+                {idx < groups.length - 1 ? (
+                  <div className="h-px bg-zinc-800/80" />
+                ) : null}
+              </div>
             ))}
           </div>
 

@@ -35,9 +35,11 @@ export default function MeetingDetail() {
         </div>
       </header>
       <main className="max-w-[430px] mx-auto px-4 py-6">
-        <div className="flex gap-3">
-          <div className="w-16 h-16 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-[24px]">🚴</div>
-          <div>
+        <div className="flex gap-3 items-start">
+          <div className="w-[110px] h-[110px] shrink-0 rounded-lg overflow-hidden bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center text-[32px]">
+            🚴
+          </div>
+          <div className="flex-1 min-w-0">
             <h1 className="text-[18px] font-semibold text-zinc-100">{meeting.title}</h1>
             <div className="mt-1 text-[12px] text-zinc-400">{meeting.location} · 👥 {meeting.members}명</div>
           </div>

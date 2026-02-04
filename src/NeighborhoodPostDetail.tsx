@@ -64,7 +64,7 @@ export default function NeighborhoodPostDetail() {
         </div>
       </header>
       <main className="max-w-[430px] mx-auto px-4 py-6 pb-24">
-        <div className="text-[11px] font-medium text-orange-500/90 mb-2">{post.tag}</div>
+        <div className="text-[14px] font-extrabold text-orange-500/90 mb-2">{post.tag}</div>
         <h1 className="text-[18px] font-semibold text-zinc-100 leading-snug">{post.title}</h1>
         <div className="mt-2 text-[12px] text-zinc-400">{post.location} · {post.time} · 조회 {post.views}</div>
         <div className="mt-6 text-[15px] text-zinc-200 leading-relaxed whitespace-pre-wrap">{post.content}</div>
