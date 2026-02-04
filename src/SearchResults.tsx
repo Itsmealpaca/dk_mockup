@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Search, Bell, Info } from "lucide-react";
+import ProductImage from "./components/ProductImage";
+import { getImageUrl } from "./data/productImages";
 
 /**
  * 검색 결과 페이지 - 메인 상품별로 각각 존재
@@ -19,26 +21,6 @@ const Pill = ({ active, children, onClick }: any) => (
   >
     {children}
   </button>
-);
-
-const PlaceholderImg = ({
-  label,
-  className = "",
-}: {
-  label: string;
-  className?: string;
-}) => (
-  <div
-    className={
-      "relative overflow-hidden rounded-lg bg-gradient-to-br from-zinc-700 to-zinc-900 border border-zinc-800 " +
-      className
-    }
-  >
-    <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.18),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(255,255,255,0.12),transparent_45%)]" />
-    <div className="absolute bottom-2 left-2 text-[11px] text-zinc-200/80">
-      {label}
-    </div>
-  </div>
 );
 
 function formatKRW(n: number) {
@@ -313,7 +295,11 @@ export default function SearchResults() {
                 className="flex gap-3 py-4 items-stretch hover:opacity-90 transition-opacity"
               >
                 <div className="shrink-0 w-[110px] h-[110px]">
-                  <PlaceholderImg label="사진" className="w-full h-full" />
+                  <ProductImage
+                    src={getImageUrl(it.id)}
+                    label="사진"
+                    className="w-full h-full"
+                  />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-[14px] text-zinc-100 line-clamp-2 leading-snug">

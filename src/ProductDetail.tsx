@@ -1,4 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
+import ProductImage from "./components/ProductImage";
+import { getImageUrl } from "./data/productImages";
 
 const PRODUCTS: Record<
   string,
@@ -177,26 +179,6 @@ function formatKRW(n: number) {
   return n.toLocaleString("ko-KR") + "원";
 }
 
-const PlaceholderImg = ({
-  label,
-  className = "",
-}: {
-  label: string;
-  className?: string;
-}) => (
-  <div
-    className={
-      "relative overflow-hidden rounded-lg bg-gradient-to-br from-zinc-700 to-zinc-900 border border-zinc-800 " +
-      className
-    }
-  >
-    <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.18),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(255,255,255,0.12),transparent_45%)]" />
-    <div className="absolute bottom-2 left-2 text-[11px] text-zinc-200/80">
-      {label}
-    </div>
-  </div>
-);
-
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -235,7 +217,11 @@ export default function ProductDetail() {
 
       <main className="max-w-[430px] mx-auto pb-24">
         <div className="w-full aspect-square">
-          <PlaceholderImg label="상품 사진" className="w-full h-full rounded-none" />
+          <ProductImage
+            src={id ? getImageUrl(id) : undefined}
+            label="상품 사진"
+            className="w-full h-full rounded-none"
+          />
         </div>
 
         <div className="px-4 py-4">

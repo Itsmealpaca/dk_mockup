@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import ProductImage from "./components/ProductImage";
+import { getImageUrl } from "./data/productImages";
 import {
   Search,
   X,
@@ -168,40 +170,13 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("전체");
   const [query, setQuery] = useState("자전거");
 
+  // searchId: 검색 결과 페이지 경로(1~4), productId: 실제 상품 ID(검색/상세와 동일)
   const usedItems = useMemo(
     () => [
-      {
-        id: "1",
-        title: "엔진11 크리드티 픽시 자전거",
-        tags: ["10대 인기🔥 픽시 자전거"],
-        meta: "일산동구 마두동 · 33분 전",
-        price: 250000,
-        liked: false,
-      },
-      {
-        id: "2",
-        title: "삼천리자전거 삼천리 튜러 · 21 하이브리드 자전거 700C",
-        tags: ["10만원 이하 가성비💸"],
-        meta: "고양시 일산동구 식사동 · 1일 전",
-        price: 70000,
-        liked: true,
-      },
-      {
-        id: "3",
-        title: "로드마스터 접이식 미니벨로 자전거",
-        tags: ["작은 바퀴 입문자용 미니벨로🐤"],
-        meta: "270m · 화정동 · 1일 전",
-        price: 200000,
-        liked: true,
-      },
-      {
-        id: "4",
-        title: "CRNK 아티카 자전거 헬멧 L 그레이",
-        tags: ["안전제일 라이딩 용품🦺"],
-        meta: "일산동구 백마동 · 2일 전",
-        price: 500000,
-        liked: true,
-      },
+      { searchId: "1", productId: "1", title: "엔진11 크리드티 픽시 자전거", tags: ["10대 인기🔥 픽시 자전거"], meta: "일산동구 마두동 · 33분 전", price: 250000, liked: false },
+      { searchId: "2", productId: "5", title: "삼천리자전거 삼천리 튜러 · 21 하이브리드 자전거 700C", tags: ["10만원 이하 가성비💸"], meta: "고양시 일산동구 식사동 · 1일 전", price: 70000, liked: true },
+      { searchId: "3", productId: "8", title: "로드마스터 접이식 미니벨로 자전거", tags: ["작은 바퀴 입문자용 미니벨로🐤"], meta: "270m · 화정동 · 1일 전", price: 200000, liked: true },
+      { searchId: "4", productId: "11", title: "CRNK 아티카 자전거 헬멧 L 그레이", tags: ["안전제일 라이딩 용품🦺"], meta: "일산동구 백마동 · 2일 전", price: 500000, liked: true },
     ],
     []
   );
@@ -348,14 +323,18 @@ export default function App() {
         <div className="px-4">
           <div>
             {usedItems.map((it, idx) => (
-              <div key={(it as any).id ?? idx}>
+              <div key={(it as any).productId ?? idx}>
                 <Link
-                  to={`/search/${(it as any).id}`}
+                  to={`/search/${(it as any).searchId}`}
                   className="block hover:opacity-90 transition-opacity"
                 >
                   <div className="flex gap-3 py-3 items-stretch">
                     <div className="shrink-0 w-[104px] h-[104px]">
-                      <PlaceholderImg label="사진" className="w-full h-full" />
+                      <ProductImage
+                        src={getImageUrl((it as any).productId)}
+                        label="사진"
+                        className="w-full h-full"
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       {Array.isArray((it as any).tags) && (it as any).tags.length > 0 ? (
